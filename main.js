@@ -1,5 +1,6 @@
 let myform = document.querySelector("form");
 let myTabla = document.querySelector("#myData");
+const btnS = document.querySelector(".btn-submit");
 let api = "https://6509d044f6553137159c1062.mockapi.io/tabla";
 
 addEventListener("DOMContentLoaded", async () => {
@@ -42,17 +43,17 @@ addEventListener("DOMContentLoaded", async () => {
 
   btnsMod.forEach((btn) => {
     let id = btn.dataset.mod;
-    btn.addEventListener("click", (e) => {
-      let btnS = document.querySelector(".btn-submit");
+    btn.addEventListener("click", async (e) => {
       btnS.value = "Actualizar";
       btnS.setAttribute("data-edit", id);
       document.querySelector(
         'input[value="Actualizar"]'
       ).style.backgroundColor = "orange";
-      let abuelo = btn.parentElement.parentElement
-      document.querySelector('.input-monto').value = abuelo.children[1].textContent
-      let tipo = document.querySelector('')
-      console.log(abuelo.children[2].textContent);
+      let res = await (await fetch(api + "/" + id)).json()
+      document.querySelector('.input-monto').value = res.valor
+      let radioIngreso = document.querySelector('input[value="ingreso"]')
+      let radioEgreso = document.querySelector('input[value="egreso"]')
+      radioEgreso.value === res.tipo ? radioEgreso.checked = true : radioIngreso.checked = true
     });
   });
 });
@@ -66,6 +67,14 @@ myform.addEventListener("submit", async (e) => {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(data),
   };
-  let res = await (await fetch(api, config)).json();
+  if (btnS.value === 'Actualizar') {
+    let id = btnS.dataset.edit
+    config.method = 'PUT'
+    await fetch(api + "/" + id, config);
+  } else {
+    await fetch(api, config);
+  }
   window.location.reload();
 });
+
+console.log(btnS.value);
