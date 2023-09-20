@@ -26,37 +26,10 @@ addEventListener("DOMContentLoaded", async () => {
     )
     .join("");
   myTabla.insertAdjacentHTML("afterbegin", trs);
-
   let btnsEl = document.querySelectorAll(".btn-eliminar");
-  btnsEl.forEach((btn) => {
-    let id = btn.dataset.del;
-    let config = {
-      method: "DELETE",
-    };
-    btn.addEventListener("click", async (e) => {
-      res = await (await fetch(api + "/" + id, config)).json();
-      window.location.reload();
-    });
-  });
-
+  eliminar(btnsEl);
   let btnsMod = document.querySelectorAll(".btn-modificar");
-  btnsMod.forEach((btn) => {
-    let id = btn.dataset.mod;
-    btn.addEventListener("click", async (e) => {
-      btnS.value = "Actualizar";
-      btnS.setAttribute("data-edit", id);
-      document.querySelector(
-        'input[value="Actualizar"]'
-      ).style.backgroundColor = "orange";
-      let res = await (await fetch(api + "/" + id)).json();
-      document.querySelector(".input-monto").value = res.valor;
-      let radioIngreso = document.querySelector('input[value="ingreso"]');
-      let radioEgreso = document.querySelector('input[value="egreso"]');
-      radioEgreso.value === res.tipo
-        ? (radioEgreso.checked = true)
-        : (radioIngreso.checked = true);
-    });
-  });
+  modificar(btnsMod);
 });
 
 myform.addEventListener("submit", async (e) => {
@@ -100,20 +73,26 @@ inputSearch.addEventListener("change", async (e) => {
   </tr>`;
   });
   myTabla.innerHTML = tableHTML;
-
   let btnsEl = document.querySelectorAll(".btn-eliminar");
+  eliminar(btnsEl);
+  let btnsMod = document.querySelectorAll(".btn-modificar");
+  modificar(btnsMod);
+});
+
+function eliminar(btnsEl) {
   btnsEl.forEach((btn) => {
     let id = btn.dataset.del;
     let config = {
       method: "DELETE",
     };
     btn.addEventListener("click", async (e) => {
-      res = await (await fetch(api + "/" + id, config)).json();
+      await fetch(api + "/" + id, config);
       window.location.reload();
     });
   });
+}
 
-  let btnsMod = document.querySelectorAll(".btn-modificar");
+function modificar(btnsMod) {
   btnsMod.forEach((btn) => {
     let id = btn.dataset.mod;
     btn.addEventListener("click", async (e) => {
@@ -131,13 +110,4 @@ inputSearch.addEventListener("change", async (e) => {
         : (radioIngreso.checked = true);
     });
   });
-});
-
-
-function eliminar(){
-
-}
-
-function modificar(){
-  
 }
