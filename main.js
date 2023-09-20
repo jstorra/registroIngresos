@@ -1,7 +1,7 @@
-let myform = document.querySelector("form");
-let myTabla = document.querySelector("#myData");
+const myform = document.querySelector("form");
+const myTabla = document.querySelector("#myData");
 const btnS = document.querySelector(".btn-submit");
-let api = "https://6509d044f6553137159c1062.mockapi.io/tabla";
+const api = "https://6509d044f6553137159c1062.mockapi.io/tabla";
 
 addEventListener("DOMContentLoaded", async () => {
   let res = await (await fetch(api)).json();
@@ -25,7 +25,7 @@ addEventListener("DOMContentLoaded", async () => {
         </tr>`
     )
     .join("");
-  myTabla.insertAdjacentHTML("beforeend", trs);
+  myTabla.insertAdjacentHTML("afterbegin", trs);
 
   let btnsEl = document.querySelectorAll(".btn-eliminar");
   btnsEl.forEach((btn) => {
@@ -49,11 +49,13 @@ addEventListener("DOMContentLoaded", async () => {
       document.querySelector(
         'input[value="Actualizar"]'
       ).style.backgroundColor = "orange";
-      let res = await (await fetch(api + "/" + id)).json()
-      document.querySelector('.input-monto').value = res.valor
-      let radioIngreso = document.querySelector('input[value="ingreso"]')
-      let radioEgreso = document.querySelector('input[value="egreso"]')
-      radioEgreso.value === res.tipo ? radioEgreso.checked = true : radioIngreso.checked = true
+      let res = await (await fetch(api + "/" + id)).json();
+      document.querySelector(".input-monto").value = res.valor;
+      let radioIngreso = document.querySelector('input[value="ingreso"]');
+      let radioEgreso = document.querySelector('input[value="egreso"]');
+      radioEgreso.value === res.tipo
+        ? (radioEgreso.checked = true)
+        : (radioIngreso.checked = true);
     });
   });
 });
@@ -67,14 +69,35 @@ myform.addEventListener("submit", async (e) => {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(data),
   };
-  if (btnS.value === 'Actualizar') {
-    let id = btnS.dataset.edit
-    config.method = 'PUT'
+  if (btnS.value === "Actualizar") {
+    let id = btnS.dataset.edit;
+    config.method = "PUT";
     await fetch(api + "/" + id, config);
-  } else {
-    await fetch(api, config);
-  }
+  } else await fetch(api, config);
   window.location.reload();
 });
 
-console.log(btnS.value);
+const inputSearch = document.querySelector(".search-input");
+inputSearch.addEventListener("change", async (e) => {
+  let id = inputSearch.value;
+  let res = await (await fetch(api)).json();
+  console.log(res);
+  let filteredResults = res.filter(item => item.id.startsWith(id));
+  console.log(filteredResults);
+
+  // myTabla.innerHTML = `<tr>
+  //         <th scope="row">${res.id}</th>
+  //         <td>${res.valor}</td>
+  //         <td>${res.tipo}</td>
+  //         <td>
+  //         <button data-mod="${res.id}" class="btn-modificar"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  //         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  //         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+  //       </svg></button>
+  //         <button data-del="${res.id}" class="btn-eliminar"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+  //         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+  //         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+  //       </svg></button>
+  //         </td>
+  //       </tr>`;
+});
