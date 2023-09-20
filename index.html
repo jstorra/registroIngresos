@@ -13,7 +13,7 @@
 <body>
   <h1>REGISTRO DE INGRESOS Y EGRESOS</h1>
   <form action="">
-    <input type="number" pattern="[0-9]+" name="valor" placeholder="Ingrese monto" />
+    <input class="input-monto" type="text" name="valor" placeholder="Ingrese monto" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
     <div class="tipos">
       <label><input type="radio" name="tipo" value="ingreso" checked />Ingreso</label>
       <label><input type="radio" name="tipo" value="egreso" />Egreso</label>

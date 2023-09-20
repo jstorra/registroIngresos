@@ -39,16 +39,22 @@ addEventListener("DOMContentLoaded", async () => {
   });
 
   let btnsMod = document.querySelectorAll(".btn-modificar");
+
   btnsMod.forEach((btn) => {
     let id = btn.dataset.mod;
-    btn.addEventListener("click",(e) => {
-      document.querySelector('.btn-submit').value = "Actualizar"
-      // res = await (await fetch(api + "/" + id, config)).json();
+    btn.addEventListener("click", (e) => {
+      let btnS = document.querySelector(".btn-submit");
+      btnS.value = "Actualizar";
+      btnS.setAttribute("data-edit", id);
+      document.querySelector(
+        'input[value="Actualizar"]'
+      ).style.backgroundColor = "orange";
+      let abuelo = btn.parentElement.parentElement
+      document.querySelector('.input-monto').value = abuelo.children[1].textContent
+      let tipo = document.querySelector('')
+      console.log(abuelo.children[2].textContent);
     });
   });
-
-
-
 });
 
 myform.addEventListener("submit", async (e) => {
@@ -58,8 +64,8 @@ myform.addEventListener("submit", async (e) => {
   let config = {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   };
   let res = await (await fetch(api, config)).json();
-  window.location.reload()
+  window.location.reload();
 });
