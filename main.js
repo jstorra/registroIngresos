@@ -108,6 +108,11 @@ function modificar(btnsMod) {
       radioEgreso.value === res.tipo
         ? (radioEgreso.checked = true)
         : (radioIngreso.checked = true);
+      let btnCancelar = document.querySelector(".btn-cancelar");
+      btnCancelar.style.display = "block";
+      btnCancelar.addEventListener("click", (e) => {
+        window.location.reload();
+      });
     });
   });
 }
