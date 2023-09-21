@@ -155,3 +155,9 @@ button.btn-modificar {
 .btn-cancelar:hover {
   outline: 2px solid #212529;
 }
+
+.totales p {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}

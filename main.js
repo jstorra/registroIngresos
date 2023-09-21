@@ -1,6 +1,7 @@
 const myform = document.querySelector("form");
 const myTabla = document.querySelector("#myData");
 const btnS = document.querySelector(".btn-submit");
+const inputSearch = document.querySelector(".search-input");
 const api = "https://6509d044f6553137159c1062.mockapi.io/tabla";
 
 addEventListener("DOMContentLoaded", async () => {
@@ -30,6 +31,7 @@ addEventListener("DOMContentLoaded", async () => {
   eliminar(btnsEl);
   let btnsMod = document.querySelectorAll(".btn-modificar");
   modificar(btnsMod);
+  totales(res);
 });
 
 myform.addEventListener("submit", async (e) => {
@@ -49,7 +51,6 @@ myform.addEventListener("submit", async (e) => {
   window.location.reload();
 });
 
-const inputSearch = document.querySelector(".search-input");
 inputSearch.addEventListener("change", async (e) => {
   let id = inputSearch.value;
   let res = await (await fetch(api)).json();
@@ -77,6 +78,7 @@ inputSearch.addEventListener("change", async (e) => {
   eliminar(btnsEl);
   let btnsMod = document.querySelectorAll(".btn-modificar");
   modificar(btnsMod);
+  totales(filteredResults);
 });
 
 function eliminar(btnsEl) {
@@ -115,4 +117,25 @@ function modificar(btnsMod) {
       });
     });
   });
+}
+
+function totales(data) {
+  let sumIngresos = 0;
+  let sumEgresos = 0;
+  data.forEach((element) => {
+    element.tipo === "ingreso"
+      ? (sumIngresos += element.valor)
+      : (sumEgresos += element.valor);
+  });
+  const spanIngresos = document.querySelector(".total-ingresos");
+  const spanEgresos = document.querySelector(".total-egresos");
+  const spanTotal = document.querySelector(".total");
+  spanIngresos.style.color = "#72e500";
+  spanEgresos.style.color = "orange";
+  sumEgresos > sumIngresos
+    ? (spanTotal.style.color = "tomato")
+    : (spanTotal.style.color = "#72e500");
+  spanIngresos.innerHTML = sumIngresos;
+  spanEgresos.innerHTML = sumEgresos;
+  spanTotal.innerHTML = sumIngresos - sumEgresos;
 }
