@@ -1,9 +1,15 @@
 body {
   height: 100vh;
-  padding: 10vh 10vw 0;
+  padding: 0 10vw;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  min-width: 405px;
+}
+
+h1 {
+  text-align: center;
 }
 
 form {
@@ -11,6 +17,22 @@ form {
   flex-direction: column;
   align-items: center;
   margin: 30px 0;
+  width: 300px;
+}
+
+.input-monto {
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #999;
+}
+
+.input-monto:hover {
+  background: #f5f5f5;
+}
+
+.input-monto:focus {
+  outline: none;
 }
 
 .tipos {
@@ -19,16 +41,34 @@ form {
   width: 100%;
   justify-content: space-evenly;
 }
+
 .tipos input {
   margin-right: 5px;
 }
 
-input[type="submit"] {
+.btn-submit {
   margin-top: 30px;
   width: 100%;
   background-color: chartreuse;
   border: none;
   border-radius: 5px;
+  padding: 5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.btn-submit:hover {
+  outline: 2px solid #212529;
+}
+
+.container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  min-width: 325px;
 }
 
 .search {
@@ -36,7 +76,7 @@ input[type="submit"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80%;
+  width: 90%;
   margin: 30px 0;
   border-radius: 10px;
   border: 1px solid #999;
@@ -52,7 +92,7 @@ input[type="submit"] {
   background: transparent;
   border: none;
   border-radius: 10px;
-  padding-left: 40px;
+  padding: 5px 0 5px 40px;
 }
 
 .search-input:hover {
@@ -64,11 +104,11 @@ input[type="submit"] {
 }
 
 .container-table {
-  width: 100%;
-  height: 45vh;
   overflow: hidden;
   overflow-y: scroll;
-  min-width: 280px;
+  overflow-x: hidden;
+  width: 100%;
+  height: 426px;
 }
 
 .container-table::-webkit-scrollbar {
