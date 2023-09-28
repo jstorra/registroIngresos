@@ -1,0 +1,14 @@
+{
+  "registros": [
+    {
+      "valor": 50000,
+      "tipo": "ingreso",
+      "id": 1
+    },
+    {
+      "valor": 20000,
+      "tipo": "egreso",
+      "id": 2
+    }
+  ]
+}

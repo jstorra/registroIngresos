@@ -2,7 +2,7 @@ const myform = document.querySelector("form");
 const myTabla = document.querySelector("#myData");
 const btnS = document.querySelector(".btn-submit");
 const inputSearch = document.querySelector(".search-input");
-const api = "https://6509d044f6553137159c1062.mockapi.io/tabla";
+const api = "http://127.0.0.1:5010/registros";
 
 addEventListener("DOMContentLoaded", async () => {
   let res = await (await fetch(api)).json();
