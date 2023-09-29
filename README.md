@@ -15,6 +15,7 @@ Este es un proyecto web simple que permite realizar un registro de ingresos y eg
 - CSS
 - JavaScript (ES6)
 - Bootstrap
+- Node
 
 ## Cómo funciona
 
@@ -50,6 +51,10 @@ El archivo JavaScript maneja la lógica del proyecto. Aquí se realizan las sigu
 - Gestión de eventos de botones.
 
 ## Uso
+
+Primero que todo debes tener instalado **Node**, en caso de no tenerlo instalado descarga la version **LTS** de la pagina oficial https://nodejs.org/es.
+
+Una vez instalado, sigue estos pasos:
 
 1. Clona este repositorio en tu máquina local.
    ```shell
